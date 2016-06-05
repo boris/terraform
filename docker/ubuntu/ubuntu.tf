@@ -4,10 +4,12 @@ provider "docker" {
 
 resource "docker_container" "ubuntu" {
   image = "${docker_image.ubuntu.latest}"
-  name = "ubuntu-${count.index}"
+  name  = "ubuntu-${count.index}"
+
   lifecycle {
     prevent_destroy = true
   }
+
   count = 4
 }
 

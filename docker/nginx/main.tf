@@ -4,10 +4,12 @@ provider "docker" {
 
 resource "docker_container" "demo-inacap" {
   image = "${docker_image.demo-inacap.latest}"
-  name = "demo-inacap-${count.index}"
+  name  = "demo-inacap-${count.index}"
+
   lifecycle {
     prevent_destroy = true
   }
+
   ports {
     internal = 80
     external = 8080
