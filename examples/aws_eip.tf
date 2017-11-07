@@ -15,7 +15,7 @@ resource "aws_instance" "name" {
     key_name = "my-key"
     availability_zone = "us-east-1d"
     tags {
-        Name = "instance-name-eip-${count.index"
+        Name = "instance-name-eip-${count.index}"
     }
 }
                                                                         
