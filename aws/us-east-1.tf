@@ -5,7 +5,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "terraform-demo" {
-    count = 2
+    count = 0
     ami = "ami-66506c1c"
     instance_type = "t2.micro"
     subnet_id = "subnet-3ecb2174"
