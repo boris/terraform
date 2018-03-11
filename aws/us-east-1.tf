@@ -16,3 +16,17 @@ resource "aws_instance" "terraform-demo" {
 	Name = "terraform-demo-${count.index}"
     }
 }
+
+resource "aws_instance" "public-instance" {
+    ami = "${var.ubuntu1604}"
+    instance_type = "t2.micro"
+    subnet_id = "${aws_subnet.staging-public.id}"
+    key_name = "boris-aws"
+    tags = {
+        Name = "public-instance-${count.index}"
+    }
+vpc_security_group_ids = [
+    "${aws_security_group.admin-security-group.id}",
+    "${aws_security_group.allow-http.id}"
+]
+}
