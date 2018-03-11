@@ -24,3 +24,10 @@ resource "aws_subnet" "stsaging-private" {
         Name = "staging-private"
     }
 }
+
+resource "aws_internet_gateway" "staging-private-ig" {
+    vpc_id = "${aws_vpc.Staging.id}"
+    tags {
+        Name = "staging-private-ig"
+    }
+}
