@@ -26,8 +26,9 @@ resource "aws_instance" "public-instance" {
     tags = {
         Name = "public-instance-${count.index}"
     }
-vpc_security_group_ids = [
-    "${aws_security_group.admin-security-group.id}",
-    "${aws_security_group.allow-http.id}"
-]
+    vpc_security_group_ids = [
+        "${aws_security_group.allow-egress.id}",
+        "${aws_security_group.admin-security-group.id}",
+        "${aws_security_group.allow-http.id}"
+    ]
 }
