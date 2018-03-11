@@ -10,6 +10,9 @@ resource "aws_security_group" "allow-egress" {
         protocol = "-1"
         cidr_blocks = ["0.0.0.0/0"]
     }
+    tags = {
+        Name = "allow-egress"
+    }
 }
 
 # Allow HTTP
@@ -23,6 +26,9 @@ resource "aws_security_group" "allow-http" {
         to_port = 80
         protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
+    }
+    tags = {
+        Name = "allow-http"
     }
 }
 
@@ -49,5 +55,8 @@ resource "aws_security_group" "admin-security-group" {
         	"200.104.143.93/32",
     	"45.55.21.238/32"
         ]
+    }
+    tags = {
+        Name = "admin-security-group"
     }
 }
