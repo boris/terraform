@@ -21,6 +21,7 @@ resource "aws_instance" "public-instance" {
     ami = "${var.ubuntu1604}"
     instance_type = "t2.micro"
     subnet_id = "${aws_subnet.staging-public.id}"
+    associate_public_ip_address = true
     key_name = "boris-aws"
     tags = {
         Name = "public-instance-${count.index}"
