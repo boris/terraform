@@ -1,3 +1,17 @@
+# Allow egress to all
+resource "aws_security_group" "allow-egress" {
+    name = "allow-egress"
+    description = "allow egress to all from all"
+    vpc_id = "${aws_vpc.Staging.id}"
+
+    egress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+}
+
 # Allow HTTP
 resource "aws_security_group" "allow-http" {
     name = "allow-http"
