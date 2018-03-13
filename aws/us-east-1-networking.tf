@@ -42,3 +42,13 @@ resource "aws_default_route_table" "staging-vpc" {
         Name = "staging-default-route"
     }
 }
+
+resource "aws_eip" "staging-ngw-eip" {
+    vpc = true
+    
+}
+
+resource "aws_nat_gateway" "staging-ngw" {
+    allocation_id = "${aws_eip.staging-ngw-eip.id}"
+    subnet_id = "${aws_subnet.staging-public.id}"
+}
