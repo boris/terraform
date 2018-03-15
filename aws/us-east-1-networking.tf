@@ -74,3 +74,8 @@ resource "aws_route_table_association" "public" {
     subnet_id = "${aws_subnet.staging-public.id}"
     route_table_id = "${aws_default_route_table.staging-vpc.id}"
 }
+
+resource "aws_route_table_association" "private" {
+    subnet_id = "${aws_subnet.staging-private.id}"
+    route_table_id = "${aws_route_table.staging-private-over-ngw.id}"
+}
