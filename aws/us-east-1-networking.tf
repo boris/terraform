@@ -42,3 +42,40 @@ resource "aws_default_route_table" "staging-vpc" {
         Name = "staging-default-route"
     }
 }
+
+resource "aws_eip" "staging-ngw-eip" {
+    vpc = true
+    tags = {
+        Name = "Staging-NGW"
+    }
+    
+}
+
+resource "aws_nat_gateway" "staging-ngw" {
+    allocation_id = "${aws_eip.staging-ngw-eip.id}"
+    subnet_id = "${aws_subnet.staging-public.id}"
+    tags = {
+        Name = "Staging-NGW"
+    }
+}
+
+resource "aws_route_table" "staging-private-over-ngw" {
+    vpc_id = "${aws_vpc.Staging.id}"
+    route {
+        cidr_block = "0.0.0.0/0"
+        gateway_id = "${aws_nat_gateway.staging-ngw.id}"
+    }
+    tags = {
+        Name = "staging-private-over-ngw"
+    }
+}
+
+resource "aws_route_table_association" "public" {
+    subnet_id = "${aws_subnet.staging-public.id}"
+    route_table_id = "${aws_default_route_table.staging-vpc.id}"
+}
+
+resource "aws_route_table_association" "private" {
+    subnet_id = "${aws_subnet.staging-private.id}"
+    route_table_id = "${aws_route_table.staging-private-over-ngw.id}"
+}
