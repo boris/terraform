@@ -15,6 +15,23 @@ resource "aws_security_group" "allow-egress" {
     }
 }
 
+# Allow Internal Traffic
+resource "aws_security_group" "allow-internal" {
+    name = "allow-internal"
+    description = "allow internal access from any to any"
+    vpc_id = "${aws_vpc.Staging.id}"
+
+    ingress {
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
+        cidr_blocks = ["10.240.0.0/16"]
+    }
+    tags = {
+        Name = "allow-internal"
+    }
+}
+
 # Allow HTTP
 resource "aws_security_group" "allow-http" {
     name = "allow-http"

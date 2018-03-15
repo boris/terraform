@@ -19,3 +19,17 @@ resource "aws_instance" "public-instance" {
         "${aws_security_group.allow-http.id}"
     ]
 }
+
+resource "aws_instance" "private-instance" {
+    ami = "${var.ubuntu1604}"
+    instance_type = "t2.micro"
+    subnet_id = "${aws_subnet.staging-private.id}"
+    key_name = "boris-aws"
+    tags = {
+        Name = "private-instance-${count.index}"
+    }
+    vpc_security_group_ids = [
+        "${aws_security_group.allow-egress.id}",
+        "${aws_security_group.allow-internal.id}"
+    ]
+}
