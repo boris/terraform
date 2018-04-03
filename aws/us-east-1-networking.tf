@@ -36,7 +36,7 @@ resource "aws_default_route_table" "staging-vpc" {
     default_route_table_id = "${aws_vpc.Staging.default_route_table_id}"
     route {
         cidr_block = "0.0.0.0/0"
-        gateway_id = "${aws_internet_gateway.staging-ig.id}"
+        nat_gateway_id = "${aws_internet_gateway.staging-ig.id}"
     }
     tags = {
         Name = "staging-default-route"
