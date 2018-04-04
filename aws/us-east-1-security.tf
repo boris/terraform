@@ -77,3 +77,31 @@ resource "aws_security_group" "admin-security-group" {
         Name = "admin-security-group"
     }
 }
+
+# ELB SG
+resource "aws_security_group" "my-classic-elb" {
+    name = "my-classic-elb"
+    description = "class elb SG"
+    vpc_id = "${aws_vpc.Staging.id}"
+    
+    egress {
+        from_port = 0
+        to_port =0
+        protocol = "-1"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    
+    ingress {
+        from_port = 443
+        to_port = 443
+        protocol = "tcp"
+        cidr_blocks = [
+            "10.0.0.0/16",
+            "10.1.0.0/16"
+        ]
+    }
+
+    tags = {
+        Name = "my-classic-elb"
+    }
+}
