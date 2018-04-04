@@ -1,6 +1,6 @@
 # Staging1-Public launch configuration
-resource "aws_launch_configuration" "ECS-Staging1-Public" {
-    name = "ECS-Staging1-Public"
+resource "aws_launch_configuration" "ECS-Public" {
+    name = "ECS-Public"
     image_id = "${var.amzn-ami-ew2}"
     instance_type = "t2.medium"
     iam_instance_profile = "ecsInstanceRole"
@@ -16,17 +16,17 @@ resource "aws_launch_configuration" "ECS-Staging1-Public" {
         create_before_destroy = true
     }
 
-    security_groups = ["${aws_security_group.ECS-Staging1-Public.id}"]
-    key_name = "xapo-devops"
+    security_groups = ["${aws_security_group.ECS-Public.id}"]
+    key_name = "devops"
     user_data = <<EOF
 #!/bin/bash
-echo ECS_CLUSTER=Staging1-Public >> /etc/ecs/ecs.config
+echo ECS_CLUSTER=Public >> /etc/ecs/ecs.config
 EOF
 }
 
 ## Autoscaling group
-resource "aws_autoscaling_group" "ECS-Staging1-Public" {
-    name = "ECS-Staging1-Public"
+resource "aws_autoscaling_group" "ECS-Public" {
+    name = "ECS-Public"
     max_size = "4"
     min_size = "1"
     desired_capacity = "2"
@@ -34,16 +34,16 @@ resource "aws_autoscaling_group" "ECS-Staging1-Public" {
         "${aws_subnet.Staging-Public-A.id}",
         "${aws_subnet.Staging-Public-B.id}"
     ]
-    launch_configuration = "${aws_launch_configuration.ECS-Staging1-Public.name}"
+    launch_configuration = "${aws_launch_configuration.ECS-Public.name}"
     health_check_type = "EC2"
     tags = {
 	key = "Name"
-        value = "ECS-Staging1-Public"
+        value = "ECS-Public"
 	propagate_at_launch = true
     }
 }
 
 ## ECS Cluster
-resource "aws_ecs_cluster" "Staging1-Public" {
-    name = "Staging1-Public"
+resource "aws_ecs_cluster" "Public" {
+    name = "Public"
 }
