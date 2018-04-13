@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e 
+set -e
 
 ask(){
     read -p 'Environment: ' environment
@@ -9,8 +9,20 @@ ask(){
 
 main(){
     ask
-    mkdir ./$environment/$region/$service
+    echo "Creating folder directory"
+    mkdir -p ./$environment/$region/$service
+    if [ $? -eq 0  ]; then
+        echo -e "\e[32mSuccess!\e[0m"
+    else
+        echo -e "\e[31mFailed! Exit\e[0m"
+    fi
+    echo "Copying files"
     cp -a common/* $environment/$region/$service
+    if [ $? -eq 0  ]; then
+        echo -e "\e[32mSuccess!\e[0m"
+    else
+        echo -e "\e[31mFailed! Exit\e[0m"
+    fi
 }
 
 main
