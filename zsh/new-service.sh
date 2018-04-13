@@ -3,8 +3,8 @@ set -e
 
 ask(){
     read -p 'Environment: ' environment
-    read -p 'Service Name: ' service
     read -p 'Region: ' region
+    read -p 'Service Name: ' service
 }
 
 main(){
