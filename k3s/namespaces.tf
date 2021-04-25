@@ -16,11 +16,11 @@ resource "kubernetes_namespace" "networking" {
   }
 }
 
-resource "kubernetes_namespace" "gocd" {
+resource "kubernetes_namespace" "cicd" {
   metadata {
     labels = {
-      "name" = "gocd"
+      "name" = "cicd"
     }
-    name = "gocd"
+    name = "cicd"
   }
 }
