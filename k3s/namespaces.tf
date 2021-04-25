@@ -15,3 +15,12 @@ resource "kubernetes_namespace" "networking" {
     name = "networking"
   }
 }
+
+resource "kubernetes_namespace" "gocd" {
+  metadata {
+    labels = {
+      "name" = "gocd"
+    }
+    name = "gocd"
+  }
+}
