@@ -15,3 +15,12 @@ resource "kubernetes_namespace" "networking" {
     name = "networking"
   }
 }
+
+resource "kubernetes_namespace" "argocd" {
+  metadata {
+    labels = {
+      "name" = "argocd"
+    }
+    name = "argocd"
+  }
+}
