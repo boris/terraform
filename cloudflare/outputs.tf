@@ -4,11 +4,11 @@ output "password" {
 }
 
 output "tunnel-token" {
-  value     = cloudflare_argo_tunnel.home.tunnel_token
+  value     = cloudflare_tunnel.home.tunnel_token
   sensitive = true
 }
 
 output "tunnel-secret" {
-  value     = cloudflare_argo_tunnel.home.secret
+  value     = cloudflare_tunnel.home.secret
   sensitive = true
 }
